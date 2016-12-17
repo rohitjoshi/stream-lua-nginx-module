@@ -193,6 +193,7 @@ ngx_stream_lua_content_wev_handler(ngx_stream_session_t *s,
 void
 ngx_stream_lua_content_handler(ngx_stream_session_t *s)
 {
+    ngx_int_t                        rc;
     ngx_stream_lua_srv_conf_t       *lscf;
     ngx_stream_lua_ctx_t            *ctx;
 
@@ -235,5 +236,9 @@ ngx_stream_lua_content_handler(ngx_stream_session_t *s)
     ctx->entered_content_phase = 1;
 
     dd("calling content handler");
-    ngx_stream_lua_finalize_session(s, lscf->content_handler(s, ctx));
+
+    rc = lscf->content_handler(s, ctx);
+    if (rc != NGX_DONE) {
+        ngx_stream_lua_finalize_session(s, rc);
+    }
 }
