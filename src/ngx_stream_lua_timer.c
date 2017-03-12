@@ -493,7 +493,9 @@ ngx_stream_lua_timer_handler(ngx_event_t *ev)
         rc = NGX_OK;
     }
 
-    ngx_stream_lua_finalize_session(s, rc);
+    if (rc != NGX_DONE) {
+        ngx_stream_lua_finalize_session(s, rc);
+    }
     return;
 
 failed:

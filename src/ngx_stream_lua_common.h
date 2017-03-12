@@ -224,9 +224,6 @@ struct ngx_stream_lua_srv_conf_s {
 
     ngx_flag_t                          check_client_abort;
 
-    ngx_msec_t                          resolver_timeout; /* resolver_timeout */
-    ngx_resolver_t                     *resolver;         /* resolver */
-
     ngx_msec_t                          keepalive_timeout;
     ngx_msec_t                          connect_timeout;
     ngx_msec_t                          send_timeout;
